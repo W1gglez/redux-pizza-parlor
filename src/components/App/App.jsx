@@ -81,7 +81,7 @@ function App() {
             <Checkout />
           </Route>
           <Route path='/admin' exact>
-            <AdminPage />
+            <AdminPage fetchOrder={fetchOrder} />
           <LogIn />
           </Route>
 
