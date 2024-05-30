@@ -11,6 +11,7 @@ export default function OrderForm() {
   const subtotal = useSelector((store) => store.cart);
   const dispatch = useDispatch();
   const history = useHistory()
+  let type = 'Pickup';
 
   let sub = 0;
   subtotal.map((price) => (price.price += sub));
@@ -31,19 +32,26 @@ export default function OrderForm() {
     setChecked(!checked);
   };
 
+  if (checked === true) {
+    type = 'Delivery';
+  }
+
   // add new pitcher to the array. this will move to the pitcher reducer!
-  const handlePitcherSubmit = (event) => {
+  const goToCheckout = (event) => {
     event.preventDefault();
     dispatch({
       type: 'ADD_INFO',
 
       payload: {
         customer_name: newName,
-        customer_address: newAddress,
-        customer_city: newCity,
-        customer_zip: newZip,
+        street_address: newAddress,
+        city: newCity,
+        zip: newZip,
+        type: type,
       },
     });
+    //Navigate to
+    history.push('/checkout');
     // spread: give me everything in pitcherList, then add this new thing
 
     setNewName('');
@@ -52,39 +60,40 @@ export default function OrderForm() {
     setNewZip('');
     setChecked(false);
   };
-    const goToCheckout = () => {
-      history.push('/checkout')
-    };
 
   return (
     <>
       <h1>Customer Information</h1>
       <h2> Please fill out your information</h2>
       <h3 className='subtotal'>Subtotal {sub} </h3>
-      <form onSubmit={handlePitcherSubmit}>
+      <form onSubmit={goToCheckout}>
         <input
           type='text'
           value={newName}
           onChange={handleNameChange}
           placeholder='Name'
+          required
         />
         <input
           type='text'
           value={newAddress}
           onChange={handleAddressChange}
           placeholder='Street Address'
+          required
         />
         <input
           type='text'
           value={newCity}
           onChange={handleCityChange}
           placeholder='City'
+          required
         />
         <input
           type='text'
           value={newZip}
           onChange={handleZipChange}
           placeholder='Zip'
+          required
         />
         <label>
           <input
@@ -92,11 +101,10 @@ export default function OrderForm() {
             checked={checked}
             onChange={handleChange}
           />
-          Delivery?
+          Delivery
         </label>
-        <button type='submit'>Submit Info</button>
+        <button>Go to Checkout</button>
       </form>
-      <button onClick={goToCheckout}>Go to Checkout</button>
     </>
   );
 }

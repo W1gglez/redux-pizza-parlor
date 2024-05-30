@@ -7,6 +7,7 @@ import AspectRatio from '@mui/joy/AspectRatio';
 import ImageIcon from '@mui/icons-material/Image';
 import CardOverflow from '@mui/joy/CardOverflow';
 import Divider from '@mui/joy/Divider';
+import { Grid } from '@mui/joy';
 
 export default function MenuItem({ pizza }) {
   const [toggle, setToggle] = useState(false);
@@ -21,51 +22,58 @@ export default function MenuItem({ pizza }) {
   };
 
   return (
-    <Card sx={{ gap: 0 }}>
-      <CardOverflow>
-        <AspectRatio>
-          <div>
-            <ImageIcon sx={{ fontSize: '4rem', opacity: 0.2 }} />
-          </div>
-        </AspectRatio>
-      </CardOverflow>
-      <CardOverflow
-        variant='primary'
-        sx={{}}
+    <Grid xs={4}>
+      <Card
+        component='li'
+        sx={{ width: 300, flexGrow: 1 }}
       >
-        <Typography sx={{ textAlign: 'left' }}>{pizza.name}</Typography>
-        <Typography sx={{ textAlign: 'left' }}>{pizza.description}</Typography>
-        <Typography sx={{ textAlign: 'right' }}>{pizza.price}</Typography>
-      </CardOverflow>
-      <CardOverflow
-        variant='soft'
-        sx={{ bgcolor: 'background.level1' }}
-      >
-        <Divider inset='context' />
-        <CardContent>
-          {toggle ? (
-            <Typography
-              onClick={() => {
-                removeFromCart();
-                setToggle(!toggle);
-              }}
-              sx={{ textAlign: 'center' }}
-            >
-              Remove
-            </Typography>
-          ) : (
-            <Typography
-              onClick={() => {
-                addToCart();
-                setToggle(!toggle);
-              }}
-              sx={{ textAlign: 'center' }}
-            >
-              Add
-            </Typography>
-          )}
-        </CardContent>
-      </CardOverflow>
-    </Card>
+        <CardOverflow>
+          <AspectRatio>
+            <div>
+              <ImageIcon sx={{ fontSize: '4rem', opacity: 0.2 }} />
+            </div>
+          </AspectRatio>
+        </CardOverflow>
+        <CardOverflow
+          variant='primary'
+          sx={{}}
+        >
+          <Typography sx={{ textAlign: 'left' }}>{pizza.name}</Typography>
+          <Typography sx={{ textAlign: 'left' }}>
+            {pizza.description}
+          </Typography>
+          <Typography sx={{ textAlign: 'right' }}>{pizza.price}</Typography>
+        </CardOverflow>
+        <CardOverflow
+          variant='soft'
+          sx={{ bgcolor: 'background.level1' }}
+        >
+          <Divider inset='context' />
+          <CardContent>
+            {toggle ? (
+              <Typography
+                onClick={() => {
+                  removeFromCart();
+                  setToggle(!toggle);
+                }}
+                sx={{ textAlign: 'center' }}
+              >
+                Remove
+              </Typography>
+            ) : (
+              <Typography
+                onClick={() => {
+                  addToCart();
+                  setToggle(!toggle);
+                }}
+                sx={{ textAlign: 'center' }}
+              >
+                Add
+              </Typography>
+            )}
+          </CardContent>
+        </CardOverflow>
+      </Card>
+    </Grid>
   );
 }
