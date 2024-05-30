@@ -36,7 +36,13 @@ export default function OrderForm() {
     event.preventDefault();
     dispatch({
       type: 'ADD_INFO',
-      payload: { newName, newAddress, newCity, newZip, checked },
+
+      payload: {
+        customer_name: newName,
+        customer_address: newAddress,
+        customer_city: newCity,
+        customer_zip: newZip,
+      },
     });
     // spread: give me everything in pitcherList, then add this new thing
 

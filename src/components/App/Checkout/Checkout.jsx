@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Cart from './Cart';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
@@ -10,10 +9,9 @@ export default function Checkout() {
   const customerInfo = useSelector((store) => store.info);
   let totalValue = 0;
 
-  const customer = customerInfo[0];
+  const customer = customerInfo.length > 0 ? customerInfo[0] : {};
 
   const checkoutCart = (event) => {
-    // event.preventDefault();
     console.log(
       'Checkout In Process! Details of order:',
       { itemsInCart },
@@ -37,14 +35,22 @@ export default function Checkout() {
   for (let i = 0; i < itemsInCart.length; i++) {
     totalValue += itemsInCart[i].price;
   }
+
   return (
     <div>
       <h2>Checkout</h2>
       <p>
         <strong>Customer Information</strong>
       </p>
-      <p>Name: {customer.name}</p>
-      {/* <p>{customer.address} {customer.city}, {customer.zip}</p> */}
+
+      {customerInfo.length > 0 ? (
+        <p>Name: {customer.name}</p>
+      ) : (
+        <p>No customer information available</p>
+      )}
+      <p>
+        {customer.address} {customer.city} {customer.zip}
+      </p>
       <table>
         <thead> Pizzas in Cart </thead>
         <tbody>
