@@ -42,7 +42,7 @@ function App() {
       </header>
       <div className='body'>
         <Router>
-          <nav className="navbar">
+          <nav className='navbar'>
             <ul>
               <li>
                 <NavLink
@@ -71,18 +71,30 @@ function App() {
               </li>
             </ul>
           </nav>
-          <Route path='/' exact>
+          <Route
+            path='/'
+            exact
+          >
             <Menu />
           </Route>
-          <Route path='/order-details' exact>
+          <Route
+            path='/order-details'
+            exact
+          >
             <OrderForm />
           </Route>
-          <Route path='/checkout' exact>
+          <Route
+            path='/checkout'
+            exact
+          >
             <Checkout />
           </Route>
-          <Route path='/admin' exact>
+          <Route
+            path='/admin'
+            exact
+          >
             <AdminPage />
-          <LogIn />
+            <LogIn />
           </Route>
         </Router>
       </div>
