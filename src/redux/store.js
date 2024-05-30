@@ -8,11 +8,11 @@ const menu = (state = [], action) => {
   }
   return state;
 };
-const cart = (state = [{ name: 'pepperoni', price: 12.99 }], action) => {
+const cart = (state = [], action) => {
   if (action.type === 'ADD_PIZZA') {
     return [...state, action.payload];
   } else if (action.type === 'REMOVE_PIZZA') {
-    const newState = state.filter((pizza) => pizza != action.payload);
+    const newState = state.filter((pizza) => pizza.id != action.payload.id);
     return newState;
   } else if (action.type === 'CLEAR_CART') {
     return [];
@@ -20,13 +20,10 @@ const cart = (state = [{ name: 'pepperoni', price: 12.99 }], action) => {
   return state;
 };
 
-const info = (
-  state = [{ name: 'Adam', address: '733', city: 'Fargo', zip: '58102' }],
-  action
-) => {
+const info = (state = {}, action) => {
   if (action.type === 'ADD_INFO') {
-    return [...state, action.payload];
-  } else if (action.type === 'CLEAR_CART') {
+    return action.payload;
+  } else if (action.type === 'CLEAR_INFO') {
     return [];
   }
   return state;

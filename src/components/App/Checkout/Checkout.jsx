@@ -2,38 +2,42 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 export default function Checkout() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const itemsInCart = useSelector((store) => store.cart);
-  const customerInfo = useSelector((store) => store.info);
+  const customer = useSelector((store) => store.info);
   let totalValue = 0;
 
-  const customer = customerInfo.length > 0 ? customerInfo[0] : {};
-
-  const checkoutCart = (event) => {
+  const checkoutCart = () => {
     console.log(
       'Checkout In Process! Details of order:',
       { itemsInCart },
-      { customerInfo }
+      { customer }
     );
 
     axios
       .post('/api/order', {
-        customer_name: customer.name,
-        street_address: customer.address,
-        city: customer.city,
-        zip: customer.zip,
-        type: customer.type,
+        ...customer,
         total: totalValue,
         pizzas: itemsInCart,
       })
-      .then((response) => {})
-      .catch((err) => console.error(err));
+      .then((response) => {
+        console.log('Order submitted successfully:', response);
+      })
+      .catch((err) => {
+        console.error('Error submitting order:', err);
+      });
+
+    dispatch({ type: 'CLEAR_CART' });
+    dispatch({ type: 'CLEAR_INFO' });
+    history.push('/');
   };
 
   for (let i = 0; i < itemsInCart.length; i++) {
-    totalValue += itemsInCart[i].price;
+    totalValue += Number(itemsInCart[i].price);
   }
 
   return (
@@ -43,30 +47,30 @@ export default function Checkout() {
         <strong>Customer Information</strong>
       </p>
 
-      {customerInfo.length > 0 ? (
-        <p>Name: {customer.name}</p>
-      ) : (
-        <p>No customer information available</p>
-      )}
       <p>
-        {customer.address} {customer.city} {customer.zip}
+        Name: {customer.customer_name} address: {customer.street_address}{' '}
+        {customer.city} {customer.zip}
       </p>
+
       <table>
-        <thead> Pizzas in Cart </thead>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+          </tr>
+        </thead>
         <tbody>
           {itemsInCart.map((item, i) => (
             <tr key={i}>
               <td>{item.name}</td>
-              <td>{item.price}</td>
+              <td>${Number(item.price)}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <h3>Total Price: {totalValue}</h3>
-      <button onClick={() => dispatch({ type: 'CLEAR_CART' })}>
-        Clear Cart
-      </button>
-      <button onClick={() => checkoutCart()}>Checkout</button>
+      <h3>Total Price: ${totalValue}</h3>
+
+      <button onClick={checkoutCart}>Checkout</button>
     </div>
   );
 }

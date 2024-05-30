@@ -12,3 +12,10 @@
 .App-title {
   font-size: 2em;
 }
+
+.subtotal{
+  color: white;
+  position: absolute;
+  top: 55px;
+  right: 12px;
+}

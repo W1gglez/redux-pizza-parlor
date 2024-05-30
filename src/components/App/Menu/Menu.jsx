@@ -1,7 +1,8 @@
 import { useSelector } from 'react-redux';
-import Box from '@mui/joy/Box';
+import Grid from '@mui/joy/Grid';
 import MenuItem from '../MenuItem/MenuItem';
-import { Button } from '@mui/joy';
+import Button from '@mui/joy/Button';
+import Container from '@mui/joy/Container';
 import { useHistory } from 'react-router-dom';
 
 export default function Menu() {
@@ -15,18 +16,27 @@ export default function Menu() {
   }
 
   return (
-    <>
-      <h3>Total: ${total} </h3>
+    <Container>
+      <h3 className='subtotal'>Subotal: ${total.toFixed(2)} </h3>
       <h2>Step 1: Select Your Pizza</h2>
-      <Box sx={{ component: 'ul', gap: 2 }}>
+      <Grid
+        container
+        spacing={2}
+        sx={{ flexGrow: 1 }}
+      >
         {menu.map((pizza, i) => (
           <MenuItem
             key={i}
             pizza={pizza}
           />
         ))}
-      </Box>
-      <Button onClick={() => history.push('/order-details')}>NEXT</Button>
-    </>
+      </Grid>
+      <Button
+        sx={{ alignItems: 'right' }}
+        onClick={() => history.push('/order-details')}
+      >
+        NEXT
+      </Button>
+    </Container>
   );
 }
