@@ -2,9 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 export default function Checkout() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const itemsInCart = useSelector((store) => store.cart);
   const customer = useSelector((store) => store.info);
   let totalValue = 0;
@@ -19,11 +21,6 @@ export default function Checkout() {
     axios
       .post('/api/order', {
         ...customer,
-        // customer_name: customer.customer_name,
-        // street_address: customer.street_address,
-        // city: customer.city,
-        // zip: customer.zip,
-        // type: customer.type,
         total: totalValue,
         pizzas: itemsInCart,
       })
@@ -33,6 +30,10 @@ export default function Checkout() {
       .catch((err) => {
         console.error('Error submitting order:', err);
       });
+
+    dispatch({ type: 'CLEAR_CART' });
+    dispatch({ type: 'CLEAR_INFO' });
+    history.push('/');
   };
 
   for (let i = 0; i < itemsInCart.length; i++) {
@@ -62,15 +63,13 @@ export default function Checkout() {
           {itemsInCart.map((item, i) => (
             <tr key={i}>
               <td>{item.name}</td>
-              <td>${item.price}</td>
+              <td>${Number(item.price)}</td>
             </tr>
           ))}
         </tbody>
       </table>
       <h3>Total Price: ${totalValue}</h3>
-      <button onClick={() => dispatch({ type: 'CLEAR_CART' })}>
-        Clear Cart
-      </button>
+
       <button onClick={checkoutCart}>Checkout</button>
     </div>
   );

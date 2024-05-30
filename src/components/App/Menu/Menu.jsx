@@ -17,7 +17,7 @@ export default function Menu() {
 
   return (
     <Container>
-      <h3>Total: ${total.toFixed(2)} </h3>
+      <h3 className='subtotal'>Subotal: ${total.toFixed(2)} </h3>
       <h2>Step 1: Select Your Pizza</h2>
       <Grid
         container

@@ -14,11 +14,11 @@ export default function MenuItem({ pizza }) {
   const dispatch = useDispatch();
 
   const addToCart = () => {
-    dispatch({ type: 'ADD_PIZZA', payload: pizza });
+    dispatch({ type: 'ADD_PIZZA', payload: { ...pizza, quantity: 1 } });
   };
 
   const removeFromCart = () => {
-    dispatch({ type: 'REMOVE_PIZZA', payload: pizza });
+    dispatch({ type: 'REMOVE_PIZZA', payload: { id: pizza.id } });
   };
 
   return (
@@ -34,10 +34,7 @@ export default function MenuItem({ pizza }) {
             </div>
           </AspectRatio>
         </CardOverflow>
-        <CardOverflow
-          variant='primary'
-          sx={{}}
-        >
+        <CardOverflow variant='primary'>
           <Typography sx={{ textAlign: 'left' }}>{pizza.name}</Typography>
           <Typography sx={{ textAlign: 'left' }}>
             {pizza.description}

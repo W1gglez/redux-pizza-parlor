@@ -14,7 +14,7 @@ export default function OrderForm() {
   let type = 'Pickup';
 
   let sub = 0;
-  subtotal.map((price) => (price.price += sub));
+  subtotal.map((price) => (sub += Number(price.price)));
 
   const handleNameChange = (event) => {
     setNewName(event.target.value);
@@ -65,7 +65,7 @@ export default function OrderForm() {
     <>
       <h1>Customer Information</h1>
       <h2> Please fill out your information</h2>
-      <h3 className='subtotal'>Subtotal {sub} </h3>
+      <h3 className='subtotal'>Subtotal: ${sub} </h3>
       <form onSubmit={goToCheckout}>
         <input
           type='text'
