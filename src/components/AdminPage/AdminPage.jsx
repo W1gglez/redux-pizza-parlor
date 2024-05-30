@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux"
 
 export default function AdminPage () {
-
-    const orders = useSelector(store => store.orders);
+  const orders = useSelector(store => store.orders);
+  console.log(orders)
     return (
 <>    
 <h1>Admin Page</h1>
@@ -16,8 +16,8 @@ export default function AdminPage () {
          </tr>
     </thead>
         <tbody>
-        {orders.map(order => (
-          <tr key={order.id} >
+        {orders.map((order) => (
+          <tr key={order.id}>
             <td>{order.customer_name}</td>
             <td>{order.time}</td>
             <td> ${order.total}</td>
