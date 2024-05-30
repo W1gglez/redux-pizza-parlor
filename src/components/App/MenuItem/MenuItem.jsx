@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
@@ -10,15 +10,15 @@ import Divider from '@mui/joy/Divider';
 
 export default function MenuItem({ pizza }) {
   const [toggle, setToggle] = useState(false);
-  const cart = useSelector((store) => store.cart);
+  const dispatch = useDispatch();
 
-  async function addToCart() {
-    try {
-      dispatch();
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  const addToCart = () => {
+    dispatch({ type: 'ADD_PIZZA', payload: pizza });
+  };
+
+  const removeFromCart = () => {
+    dispatch({ type: 'REMOVE_PIZZA', payload: pizza });
+  };
 
   return (
     <Card sx={{ gap: 0 }}>
@@ -42,12 +42,28 @@ export default function MenuItem({ pizza }) {
         sx={{ bgcolor: 'background.level1' }}
       >
         <Divider inset='context' />
-        <CardContent onClick={() => setToggle(!toggle)}>
-          {
-            <Typography sx={{ textAlign: 'center' }}>
-              {toggle ? 'Remove' : 'Add'}
+        <CardContent>
+          {toggle ? (
+            <Typography
+              onClick={() => {
+                removeFromCart();
+                setToggle(!toggle);
+              }}
+              sx={{ textAlign: 'center' }}
+            >
+              Remove
             </Typography>
-          }
+          ) : (
+            <Typography
+              onClick={() => {
+                addToCart();
+                setToggle(!toggle);
+              }}
+              sx={{ textAlign: 'center' }}
+            >
+              Add
+            </Typography>
+          )}
         </CardContent>
       </CardOverflow>
     </Card>
