@@ -1,31 +1,34 @@
-import { useSelector } from "react-redux"
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+export default function AdminPage({ fetchOrder }) {
+	const orders = useSelector((store) => store.orders);
 
-export default function AdminPage () {
-  const orders = useSelector(store => store.orders);
-  console.log(orders)
-    return (
-<>    
-<h1>Admin Page</h1>
+	useEffect(() => {
+		fetchOrder();
+	}, []);
 
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Time</th>
-            <th>Order Total</th>
-         </tr>
-    </thead>
-        <tbody>
-        {orders.map((order) => (
-          <tr key={order.id}>
-            <td>{order.customer_name}</td>
-            <td>{order.time}</td>
-            <td> ${order.total}</td>
-          </tr>
-        ))}
-        </tbody>
-</table>
-</>    
+	return (
+		<>
+			<h1>Admin Page</h1>
 
-    )
+			<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Time</th>
+						<th>Order Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					{orders.map((order) => (
+						<tr key={order.id}>
+							<td>{order.customer_name}</td>
+							<td>{order.time}</td>
+							<td> ${order.total}</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</>
+	);
 }
