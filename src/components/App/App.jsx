@@ -1,19 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
-import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Route, NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
 import Checkout from './Checkout/Checkout';
 import OrderForm from './OrderForm/OrderForm';
 import Menu from './Menu/Menu';
-
 import LogIn from './LogIn/LogIn';
 import AdminPage from '../AdminPage/AdminPage';
-
-
-import { NavLink } from 'react-router-dom/';
-
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +20,7 @@ function App() {
       console.error(err);
     }
   }
+
   async function fetchOrder() {
     try {
       const result = await axios.get('/api/order');
@@ -47,49 +42,49 @@ function App() {
       </header>
       <div className='body'>
         <Router>
-          <nav>
+          <nav className="navbar">
             <ul>
               <li>
                 <NavLink
                   to='/'
                   exact
+                  activeClassName='active'
                 >
                   Home
                 </NavLink>
               </li>
               <li>
-                <NavLink to='/order-details'>Orders</NavLink>
+                <NavLink
+                  to='/order-details'
+                  activeClassName='active'
+                >
+                  Orders
+                </NavLink>
               </li>
               <li>
-                <NavLink to='/checkout'>Checkout</NavLink>
+                <NavLink
+                  to='/checkout'
+                  activeClassName='active'
+                >
+                  Checkout
+                </NavLink>
               </li>
             </ul>
           </nav>
-          <Route
-            path='/'
-            exact
-          >
+          <Route path='/' exact>
             <Menu />
           </Route>
-          <Route
-            path='/order-details'
-            exact
-          >
+          <Route path='/order-details' exact>
             <OrderForm />
           </Route>
-          <Route
-            path='/checkout'
-            exact
-          >
+          <Route path='/checkout' exact>
             <Checkout />
           </Route>
-          <Route
-            path='/admin'
-            exact
-          >
-            <AdminPage/>
+          <Route path='/admin' exact>
+            <AdminPage />
+          <LogIn />
           </Route>
-         <LogIn fetchOrder={fetchOrder}/>
+
         </Router>
       </div>
     </div>
