@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux';
 import Checkout from './Checkout/Checkout';
 import OrderForm from './OrderForm/OrderForm';
 import Menu from './Menu/Menu';
-import LogIn from './LogIn/LogIn';
 import AdminPage from '../AdminPage/AdminPage';
+import Container from '@mui/joy/Container';
 
 function App() {
   const dispatch = useDispatch();
@@ -40,37 +40,32 @@ function App() {
       <header className='App-header'>
         <h1 className='App-title'>Prime Pizza</h1>
       </header>
-      <div className='body'>
-        <Router>
-          <nav className='navbar'>
-            <ul>
-              <li>
-                <NavLink
-                  to='/'
-                  exact
-                  activeClassName='active'
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to='/order-details'
-                  activeClassName='active'
-                >
-                  Orders
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to='/checkout'
-                  activeClassName='active'
-                >
-                  Checkout
-                </NavLink>
-              </li>
-            </ul>
-          </nav>
+      <Router>
+        <nav className='navbar'>
+          <ul>
+            <li>
+              <NavLink
+                to='/'
+                exact
+                activeClassName='active'
+              >
+                Menu
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to='/order-details'>Customer Info</NavLink>
+            </li>
+            <li>
+              <NavLink
+                to='/checkout'
+                activeClassName='active'
+              >
+                Checkout
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+        <Container>
           <Route
             path='/'
             exact
@@ -94,11 +89,9 @@ function App() {
             exact
           >
             <AdminPage />
-            <LogIn />
           </Route>
-
-        </Router>
-      </div>
+        </Container>
+      </Router>
     </div>
   );
 }

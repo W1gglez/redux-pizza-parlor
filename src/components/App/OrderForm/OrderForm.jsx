@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {useHistory} from 'react-router-dom'
+import LogIn from '../LogIn/LogIn';
 
 export default function OrderForm() {
   const [newName, setNewName] = useState('');
@@ -10,7 +11,7 @@ export default function OrderForm() {
   const [checked, setChecked] = useState(false);
   const subtotal = useSelector((store) => store.cart);
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
   let type = 'Pickup';
 
   let sub = 0;
@@ -36,7 +37,6 @@ export default function OrderForm() {
     type = 'Delivery';
   }
 
-  // add new pitcher to the array. this will move to the pitcher reducer!
   const goToCheckout = (event) => {
     event.preventDefault();
     dispatch({
@@ -50,9 +50,8 @@ export default function OrderForm() {
         type: type,
       },
     });
-    //Navigate to
+    //Navigate to checkout page
     history.push('/checkout');
-    // spread: give me everything in pitcherList, then add this new thing
 
     setNewName('');
     setNewAddress('');
@@ -63,9 +62,10 @@ export default function OrderForm() {
 
   return (
     <>
-      <h1>Customer Information</h1>
-      <h2> Please fill out your information</h2>
-      <h3 className='subtotal'>Subtotal: ${sub} </h3>
+      <LogIn />
+      <h2>Step 2: Customer Information</h2>
+      <h4> Please fill out your information</h4>
+      <h3 className='subtotal'>Subtotal: ${sub.toFixed(2)} </h3>
       <form onSubmit={goToCheckout}>
         <input
           type='text'

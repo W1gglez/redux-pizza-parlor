@@ -1,6 +1,4 @@
-.body{
-  padding: 0px ;
-}
+
 .App-header {
   background-color: #222;
   height: 70px;
@@ -18,7 +16,6 @@
   top: 55px;
   right: 12px;
 }
-/* App.css */
 
 .navbar {
   background-color: #333;
@@ -44,4 +41,12 @@
 .navbar a.active {
   font-weight: bold;
   border-bottom: 2px solid white;
+}
+
+.customerinfo>p{
+  margin: 4px;
+}
+
+.customerinfo{
+  margin-bottom: 12px;
 }
