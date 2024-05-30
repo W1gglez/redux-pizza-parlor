@@ -12,7 +12,7 @@ const cart = (state = [], action) => {
   if (action.type === 'ADD_PIZZA') {
     return [...state, action.payload];
   } else if (action.type === 'REMOVE_PIZZA') {
-    const newState = state.filter((pizza) => pizza != action.payload);
+    const newState = state.filter((pizza) => pizza.id != action.payload.id);
     return newState;
   } else if (action.type === 'CLEAR_CART') {
     return [];
@@ -23,7 +23,7 @@ const cart = (state = [], action) => {
 const info = (state = {}, action) => {
   if (action.type === 'ADD_INFO') {
     return action.payload;
-  } else if (action.type === 'CLEAR_CART') {
+  } else if (action.type === 'CLEAR_INFO') {
     return [];
   }
   return state;

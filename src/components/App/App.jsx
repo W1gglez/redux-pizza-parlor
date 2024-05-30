@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import Checkout from './Checkout/Checkout';
 import OrderForm from './OrderForm/OrderForm';
 import Menu from './Menu/Menu';
+import { NavLink } from 'react-router-dom/';
 // import Admin from './Admin/Admin';
 
 function App() {
@@ -32,6 +33,24 @@ function App() {
       </header>
       <div className='body'>
         <Router>
+          <nav>
+            <ul>
+              <li>
+                <NavLink
+                  to='/'
+                  exact
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to='/order-details'>Orders</NavLink>
+              </li>
+              <li>
+                <NavLink to='/checkout'>Checkout</NavLink>
+              </li>
+            </ul>
+          </nav>
           <Route
             path='/'
             exact
