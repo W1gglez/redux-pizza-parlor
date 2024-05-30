@@ -28,12 +28,19 @@ const info = (state = {}, action) => {
   }
   return state;
 };
+const orders = (state = [{customer_name: 'Alex', street_address: 'Reno St', city: 'Reno', zip: '58585', type: 'true', total: '49', time: '2pm'}], action) => {
+  if (action.type === 'SET_ORDERS') {
+    return action.payload;
+  }
+  return state;
+};
 
 const store = createStore(
   combineReducers({
     cart,
     menu,
     info,
+    orders,
   }),
   applyMiddleware(logger)
 );
