@@ -43,13 +43,13 @@ export default function Checkout() {
         <strong>Customer Information</strong>
       </p>
       {customerInfo.length > 0 ? (
-        <p>Name: {customer.name}</p>
+        <p>
+          Name: {customer.name} address: {customer.address} {customer.city}{' '}
+          {customer.zip}
+        </p>
       ) : (
         <p>No customer information available</p>
       )}
-      <p>
-        {customer.address} {customer.city} {customer.zip}
-      </p>
       <table>
         <thead> Pizzas in Cart </thead>
         <tbody>
