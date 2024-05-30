@@ -28,13 +28,13 @@ function App() {
   }
   async function fetchOrder() {
     try {
-      const result = await axios.get('/api/orders');
+      const result = await axios.get('/api/order');
       dispatch({ type: 'SET_ORDERS', payload: result.data });
     } catch (err) {
       console.error(err);
     }
   }
-
+  console.log(fetchOrder());
   useEffect(() => {
     fetchMenu();
     fetchOrder();
@@ -89,7 +89,7 @@ function App() {
           >
             <AdminPage/>
           </Route>
-         <LogIn/>
+         <LogIn fetchOrder={fetchOrder}/>
         </Router>
       </div>
     </div>

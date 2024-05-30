@@ -28,9 +28,9 @@ const info = (state = {}, action) => {
   }
   return state;
 };
-const orders = (state = [{customer_name: 'Alex', street_address: 'Reno St', city: 'Reno', zip: '58585', type: 'true', total: '49', time: '2pm'}], action) => {
+const orders = (state = [], action) => {
   if (action.type === 'SET_ORDERS') {
-    return action.payload;
+    return [action.payload];
   }
   return state;
 };
