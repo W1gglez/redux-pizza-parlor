@@ -22,7 +22,7 @@ export default function Checkout() {
 
     axios
       .post('/api/order', {
-        customer_name: customer.newName,
+        customer_name: customer.name,
         street_address: customer.address,
         city: customer.city,
         zip: customer.zip,
@@ -43,7 +43,7 @@ export default function Checkout() {
       <p>
         <strong>Customer Information</strong>
       </p>
-      <p>Name: {customer.newName}</p>
+      <p>Name: {customer.name}</p>
       {/* <p>{customer.address} {customer.city}, {customer.zip}</p> */}
       <table>
         <thead> Pizzas in Cart </thead>

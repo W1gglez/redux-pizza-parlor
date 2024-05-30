@@ -16,7 +16,7 @@ const cart = (state = [{ name: 'pepperoni', price: 12.99 }], action) => {
   }
   return state;
 };
-const info = (state = [], action) => {
+const info = (state = [{ name:'alex ', address: '723', city: 'Fargo', zip: '3434' }], action) => {
   if (action.type === 'ADD_INFO') {
     return [...state, action.payload];
   }
