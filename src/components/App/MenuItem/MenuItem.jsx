@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
@@ -8,9 +8,11 @@ import ImageIcon from '@mui/icons-material/Image';
 import CardOverflow from '@mui/joy/CardOverflow';
 import Divider from '@mui/joy/Divider';
 import { Grid } from '@mui/joy';
+import { useSelector } from 'react-redux';
 
 export default function MenuItem({ pizza }) {
   const [toggle, setToggle] = useState(false);
+  const cart = useSelector((store) => store.cart);
   const dispatch = useDispatch();
 
   const addToCart = () => {
@@ -21,11 +23,19 @@ export default function MenuItem({ pizza }) {
     dispatch({ type: 'REMOVE_PIZZA', payload: { id: pizza.id } });
   };
 
+  useEffect(() => {
+    for (const item of cart) {
+      if (item.name === pizza.name) {
+        setToggle(true);
+      }
+    }
+  }, []);
+
   return (
-    <Grid xs={4}>
+    <Grid xs='auto'>
       <Card
         component='li'
-        sx={{ width: 300, flexGrow: 1 }}
+        sx={{ width: 300, flexGrow: 1, mb: 3 }}
       >
         <CardOverflow>
           <AspectRatio>
@@ -34,7 +44,7 @@ export default function MenuItem({ pizza }) {
             </div>
           </AspectRatio>
         </CardOverflow>
-        <CardOverflow variant='primary'>
+        <CardOverflow>
           <Typography sx={{ textAlign: 'left' }}>{pizza.name}</Typography>
           <Typography sx={{ textAlign: 'left' }}>
             {pizza.description}

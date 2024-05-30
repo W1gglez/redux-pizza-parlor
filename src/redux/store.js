@@ -1,7 +1,6 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import logger from 'redux-logger';
 
-// Be sure to replace this reducer! 🙂
 const menu = (state = [], action) => {
   if (action.type === 'SET_MENU') {
     return action.payload;

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import LogIn from '../LogIn/LogIn';
 
 export default function Checkout() {
   const dispatch = useDispatch();
@@ -42,15 +43,16 @@ export default function Checkout() {
 
   return (
     <div>
-      <h2>Checkout</h2>
-      <p>
-        <strong>Customer Information</strong>
-      </p>
+      <LogIn />
+      <h2>Step 3: Checkout</h2>
 
-      <p>
-        Name: {customer.customer_name} address: {customer.street_address}{' '}
-        {customer.city} {customer.zip}
-      </p>
+      <div className='customerinfo'>
+        <p>{customer.customer_name}</p>
+        <p>{customer.street_address} </p>
+        <p>
+          {customer.city} {customer.zip}
+        </p>
+      </div>
 
       <table>
         <thead>
@@ -68,7 +70,7 @@ export default function Checkout() {
           ))}
         </tbody>
       </table>
-      <h3>Total Price: ${totalValue}</h3>
+      <h3>Total Price: ${totalValue.toFixed(2)}</h3>
 
       <button onClick={checkoutCart}>Checkout</button>
     </div>
