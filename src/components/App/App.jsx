@@ -65,7 +65,7 @@ function App() {
             </li>
           </ul>
         </nav>
-        <Container>
+        <Container sx={{ mb: 3 }}>
           <Route
             path='/'
             exact
@@ -85,9 +85,11 @@ function App() {
             <Checkout />
           </Route>
 
-          <Route path='/admin' exact>
+          <Route
+            path='/admin'
+            exact
+          >
             <AdminPage fetchOrder={fetchOrder} />
-
           </Route>
         </Container>
       </Router>

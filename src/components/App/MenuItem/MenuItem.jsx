@@ -35,21 +35,37 @@ export default function MenuItem({ pizza }) {
     <Grid xs='auto'>
       <Card
         component='li'
-        sx={{ width: 300, flexGrow: 1, mb: 3 }}
+        sx={{ width: 300, flexGrow: 1, mb: 2 }}
       >
         <CardOverflow>
           <AspectRatio>
-            <div>
-              <ImageIcon sx={{ fontSize: '4rem', opacity: 0.2 }} />
-            </div>
+            {!pizza.image_path ? (
+              <div>
+                <ImageIcon sx={{ fontSize: '4rem', opacity: 0.2 }} />
+              </div>
+            ) : (
+              <img src={pizza.image_path} />
+            )}
           </AspectRatio>
         </CardOverflow>
         <CardOverflow>
-          <Typography sx={{ textAlign: 'left' }}>{pizza.name}</Typography>
-          <Typography sx={{ textAlign: 'left' }}>
+          <Typography
+            level='title-lg'
+            sx={{ textAlign: 'left', mb: 1 }}
+          >
+            {pizza.name}
+          </Typography>
+          <Typography
+            level='body-sm'
+            sx={{ textAlign: 'left', mb: 1 }}
+          >
             {pizza.description}
           </Typography>
-          <Typography sx={{ textAlign: 'right' }}>{pizza.price}</Typography>
+          <Typography
+            sx={{ textAlign: 'right', fontSize: '18px', fontWeight: 'bolder' }}
+          >
+            ${pizza.price}
+          </Typography>
         </CardOverflow>
         <CardOverflow
           variant='soft'

@@ -33,7 +33,7 @@ export default function Menu() {
         ))}
       </Grid>
       <Button
-        sx={{ alignItems: 'right' }}
+        sx={{}}
         onClick={() => history.push('/order-details')}
       >
         NEXT
