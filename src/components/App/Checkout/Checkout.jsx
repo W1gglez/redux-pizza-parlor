@@ -42,6 +42,7 @@ export default function Checkout() {
       <p>
         <strong>Customer Information</strong>
       </p>
+
       {customerInfo.length > 0 ? (
         <p>Name: {customer.name}</p>
       ) : (

@@ -19,6 +19,7 @@ const cart = (state = [{ name: 'pepperoni', price: 12.99 }], action) => {
   }
   return state;
 };
+
 const info = (
   state = [{ name: 'Adam', address: '733', city: 'Fargo', zip: '58102' }],
   action

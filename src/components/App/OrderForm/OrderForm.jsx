@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {useHistory} from 'react-router-dom'
 
 export default function OrderForm() {
   const [newName, setNewName] = useState('');
@@ -9,6 +10,7 @@ export default function OrderForm() {
   const [checked, setChecked] = useState(false);
   const subtotal = useSelector((store) => store.cart);
   const dispatch = useDispatch();
+  const history = useHistory()
 
   let sub = 0;
   subtotal.map((price) => (price.price += sub));
@@ -34,6 +36,7 @@ export default function OrderForm() {
     event.preventDefault();
     dispatch({
       type: 'ADD_INFO',
+
       payload: {
         customer_name: newName,
         customer_address: newAddress,
@@ -49,8 +52,10 @@ export default function OrderForm() {
     setNewZip('');
     setChecked(false);
   };
-  //   const goToCheckout = () => {};
-  //   onClick={goToCheckout}
+    const goToCheckout = () => {
+      history.push('/checkout')
+    };
+
   return (
     <>
       <h1>Customer Information</h1>
@@ -91,7 +96,7 @@ export default function OrderForm() {
         </label>
         <button type='submit'>Submit Info</button>
       </form>
-      <button>Go to Checkout</button>
+      <button onClick={goToCheckout}>Go to Checkout</button>
     </>
   );
 }
