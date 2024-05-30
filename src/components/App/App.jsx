@@ -7,7 +7,9 @@ import { useEffect } from 'react';
 import Checkout from './Checkout/Checkout';
 import OrderForm from './OrderForm/OrderForm';
 import Menu from './Menu/Menu';
-// import Admin from './Admin/Admin';
+import LogIn from './LogIn/LogIn';
+import AdminPage from '../AdminPage/AdminPage';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -20,9 +22,18 @@ function App() {
       console.error(err);
     }
   }
+  async function fetchOrder() {
+    try {
+      const result = await axios.get('/api/orders');
+      dispatch({ type: 'SET_ORDERS', payload: result.data });
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   useEffect(() => {
     fetchMenu();
+    fetchOrder();
   }, []);
 
   return (
@@ -51,11 +62,12 @@ function App() {
             <Checkout />
           </Route>
           <Route
-            paht='/admin'
+            path='/admin'
             exact
           >
-            {/* <Admin /> */}
+            <AdminPage/>
           </Route>
+         <LogIn/>
         </Router>
       </div>
     </div>
