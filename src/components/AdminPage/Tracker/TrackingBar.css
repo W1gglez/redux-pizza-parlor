@@ -1,0 +1,23 @@
+/* TrackingBar.css */
+.tracking-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: red;
+  }
+  
+  .status {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .status.active {
+    font-weight: bold;
+    background-color: green;
+  }
+  
+  button {
+    margin-left: 10px;
+  }
+  
