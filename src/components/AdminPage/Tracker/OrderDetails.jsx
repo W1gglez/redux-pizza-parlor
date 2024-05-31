@@ -4,18 +4,24 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import TrackingBar from './TrackingBar';
 import moment from 'moment';
+import { Link } from '@mui/joy';
+import { NavLink } from 'react-router-dom/';
 
 const OrderDetails = () => {
 	const { id } = useParams();
 	const ordersState = useSelector((store) => store.orders);
 	const { data: orders } = ordersState;
-  
+
 	const order = orders.find((order) => order.id === Number(id));
-  
-	if (!order) {
-    return <div>Order not found</div>;
+
+	function returnToAdmin(event) {
+		<Link to={`/admin/`}>{order.customer_name}</Link>;
 	}
-  const formattedTime = moment(order.time).format('LLL');
+
+	if (!order) {
+		return <div>Order not found</div>;
+	}
+	const formattedTime = moment(order.time).format('LLL');
 	return (
 		<div>
 			<h1>Order Details</h1>
@@ -34,7 +40,12 @@ const OrderDetails = () => {
 			<ul>
 				<li>One Sad Date Pizza</li>
 			</ul>
-			<TrackingBar  />
+			<p>
+				<TrackingBar />
+			</p>
+			<section>
+				<NavLink to='/admin'>Admin</NavLink>
+			</section>
 		</div>
 	);
 };
