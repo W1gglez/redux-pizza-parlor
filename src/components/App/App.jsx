@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
@@ -7,6 +8,7 @@ import Checkout from './Checkout/Checkout';
 import OrderForm from './OrderForm/OrderForm';
 import Menu from './Menu/Menu';
 import AdminPage from '../AdminPage/AdminPage';
+import OrderDetails from '../AdminPage/Tracker/OrderDetails';
 import Container from '@mui/joy/Container';
 
 function App() {
@@ -22,14 +24,16 @@ function App() {
   }
 
   async function fetchOrder() {
+    dispatch({ type: 'FETCH_ORDERS_REQUEST' });
     try {
       const result = await axios.get('/api/order');
       dispatch({ type: 'SET_ORDERS', payload: result.data });
     } catch (err) {
       console.error(err);
+      dispatch({ type: 'SET_ORDERS', payload: [] }); // Handle error by setting orders to an empty array or showing an error state
     }
   }
-  console.log(fetchOrder());
+
   useEffect(() => {
     fetchMenu();
     fetchOrder();
@@ -84,12 +88,17 @@ function App() {
           >
             <Checkout />
           </Route>
-
           <Route
             path='/admin'
             exact
           >
             <AdminPage fetchOrder={fetchOrder} />
+          </Route>
+          <Route
+            path='/order/:id'
+            exact
+          >
+            <OrderDetails />
           </Route>
         </Container>
       </Router>
