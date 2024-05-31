@@ -3,18 +3,19 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import TrackingBar from './TrackingBar';
+import moment from 'moment';
 
 const OrderDetails = () => {
 	const { id } = useParams();
-	
 	const ordersState = useSelector((store) => store.orders);
 	const { data: orders } = ordersState;
-
+  
 	const order = orders.find((order) => order.id === Number(id));
-
+  
 	if (!order) {
-		return <div>Order not found</div>;
+    return <div>Order not found</div>;
 	}
+  const formattedTime = moment(order.time).format('LLL');
 	return (
 		<div>
 			<h1>Order Details</h1>
@@ -22,7 +23,7 @@ const OrderDetails = () => {
 				<strong>Customer Name:</strong> {order.customer_name}
 			</p>
 			<p>
-				<strong>Time:</strong> {order.time}
+				<strong>Time:</strong> {formattedTime}
 			</p>
 			<p>
 				<strong>Order Total:</strong> ${order.total}
