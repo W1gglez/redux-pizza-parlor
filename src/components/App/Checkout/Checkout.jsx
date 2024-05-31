@@ -4,6 +4,10 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import LogIn from '../LogIn/LogIn';
+import Button from '@mui/joy/Button';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Table from '@mui/joy/Table';
 
 export default function Checkout() {
   const dispatch = useDispatch();
@@ -44,9 +48,10 @@ export default function Checkout() {
   return (
     <div>
       <LogIn />
-      <h2>Step 3: Checkout</h2>
+      <h2 className='my-3'>Step 3: Checkout</h2>
 
       <div className='customerinfo'>
+        <h5 style={{ textAlign: 'right' }}>For {customer.type}</h5>
         <p>{customer.customer_name}</p>
         <p>{customer.street_address} </p>
         <p>
@@ -54,7 +59,14 @@ export default function Checkout() {
         </p>
       </div>
 
-      <table>
+      <Table
+        borderAxis='both'
+        color='neutral'
+        size='lg'
+        stripe='even'
+        variant='soft'
+        sx={{ my: 2 }}
+      >
         <thead>
           <tr>
             <th>Name</th>
@@ -65,14 +77,25 @@ export default function Checkout() {
           {itemsInCart.map((item, i) => (
             <tr key={i}>
               <td>{item.name}</td>
-              <td>${Number(item.price)}</td>
+              <td style={{ textAlign: 'right' }}>${Number(item.price)}</td>
             </tr>
           ))}
         </tbody>
-      </table>
-      <h3>Total Price: ${totalValue.toFixed(2)}</h3>
+      </Table>
 
-      <button onClick={checkoutCart}>Checkout</button>
+      <h5 style={{ textAlign: 'right' }}>
+        Total Price: ${totalValue.toFixed(2)}
+      </h5>
+      <Row>
+        <Col className='d-flex justify-content-end'>
+          <Button
+            sx={{ px: 6 }}
+            onClick={checkoutCart}
+          >
+            Checkout
+          </Button>
+        </Col>
+      </Row>
     </div>
   );
 }

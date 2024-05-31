@@ -13,24 +13,22 @@
 .subtotal{
   color: white;
   position: absolute;
-  top: 55px;
+  top: 83px;
   right: 12px;
 }
 
 .navbar {
   background-color: #333;
-  padding: 10px;
-  margin-bottom: 20px;
 }
 
 .navbar ul {
   list-style: none;
-  padding: 0;
   display: flex;
+  margin: 8px;
 }
 
 .navbar li {
-  margin-right: 20px;
+  margin-right: 20px;  
 }
 
 .navbar a {
@@ -43,10 +41,10 @@
   border-bottom: 2px solid white;
 }
 
-.customerinfo>p{
-  margin: 4px;
+.customerinfo p{
+  margin: 2px;
 }
 
-.customerinfo{
-  margin-bottom: 12px;
+.menu-item:hover .item-description{
+  white-space: wrap;
 }

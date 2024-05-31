@@ -17,10 +17,12 @@ export default function MenuItem({ pizza }) {
 
   const addToCart = () => {
     dispatch({ type: 'ADD_PIZZA', payload: { ...pizza, quantity: 1 } });
+    setToggle(!toggle);
   };
 
   const removeFromCart = () => {
     dispatch({ type: 'REMOVE_PIZZA', payload: { id: pizza.id } });
+    setToggle(!toggle);
   };
 
   useEffect(() => {
@@ -34,8 +36,14 @@ export default function MenuItem({ pizza }) {
   return (
     <Grid xs='auto'>
       <Card
+        className='menu-item'
         component='li'
-        sx={{ width: 300, flexGrow: 1, mb: 2 }}
+        sx={{
+          width: 300,
+          flexGrow: 1,
+          mb: 2,
+        }}
+        onClick={toggle ? () => removeFromCart() : () => addToCart()}
       >
         <CardOverflow>
           <AspectRatio>
@@ -50,19 +58,22 @@ export default function MenuItem({ pizza }) {
         </CardOverflow>
         <CardOverflow>
           <Typography
-            level='title-lg'
+            level='h3'
             sx={{ textAlign: 'left', mb: 1 }}
           >
             {pizza.name}
           </Typography>
           <Typography
+            className='item-description'
             level='body-sm'
             sx={{ textAlign: 'left', mb: 1 }}
+            noWrap
           >
             {pizza.description}
           </Typography>
           <Typography
-            sx={{ textAlign: 'right', fontSize: '18px', fontWeight: 'bolder' }}
+            level='h4'
+            sx={{ textAlign: 'right' }}
           >
             ${pizza.price}
           </Typography>
@@ -74,23 +85,11 @@ export default function MenuItem({ pizza }) {
           <Divider inset='context' />
           <CardContent>
             {toggle ? (
-              <Typography
-                onClick={() => {
-                  removeFromCart();
-                  setToggle(!toggle);
-                }}
-                sx={{ textAlign: 'center' }}
-              >
+              <Typography sx={{ textAlign: 'center', cursor: 'pointer' }}>
                 Remove
               </Typography>
             ) : (
-              <Typography
-                onClick={() => {
-                  addToCart();
-                  setToggle(!toggle);
-                }}
-                sx={{ textAlign: 'center' }}
-              >
+              <Typography sx={{ textAlign: 'center', cursor: 'pointer' }}>
                 Add
               </Typography>
             )}

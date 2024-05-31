@@ -1,6 +1,11 @@
 import './Login.css';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Input from '@mui/joy/Input';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function LogIn() {
   const [userName, setUserName] = useState('');
@@ -29,23 +34,39 @@ export default function LogIn() {
   };
 
   return (
-    <form
+    <Form
       className='loginForm'
       onSubmit={handleSubmit}
     >
-      <input
-        type='text'
-        value={userName}
-        onChange={handleUserName}
-        placeholder='Username'
-      />
-      <input
-        type='password'
-        value={password}
-        onChange={handlePassword}
-        placeholder='Password'
-      />
-      <button type='submit'>Log In</button>
-    </form>
+      <Row>
+        <Col className='p-1'>
+          <Input
+            type='text'
+            value={userName}
+            onChange={handleUserName}
+            placeholder='Username'
+            size='sm'
+          />
+        </Col>
+        <Col className='p-1'>
+          <Input
+            type='password'
+            value={password}
+            onChange={handlePassword}
+            placeholder='Password'
+            size='sm'
+          />
+        </Col>
+        <Col className='p-1 mr-4'>
+          <Button
+            variant='outline-secondary sm'
+            size='sm'
+            type='submit'
+          >
+            Log In
+          </Button>
+        </Col>
+      </Row>
+    </Form>
   );
 }

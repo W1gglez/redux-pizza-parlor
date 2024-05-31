@@ -65,7 +65,11 @@ function App() {
             </li>
           </ul>
         </nav>
-        <Container sx={{ mb: 3 }}>
+        <Container
+          sx={{
+            mb: 3,
+          }}
+        >
           <Route
             path='/'
             exact
