@@ -30,7 +30,13 @@ const info = (state = {}, action) => {
 };
 const orders = (state = [], action) => {
   if (action.type === 'SET_ORDERS') {
-    return [action.payload];
+    return action.payload;
+  }
+  return state;
+};
+const items = (state = [], action) => {
+  if (action.type === 'SET_LINE_ITEM') {
+    return action.payload;
   }
   return state;
 };
@@ -41,6 +47,7 @@ const store = createStore(
     menu,
     info,
     orders,
+    items
   }),
   applyMiddleware(logger)
 );

@@ -1,90 +1,84 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
-import './App.css';
-import { HashRouter as Router, Route, NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import Checkout from './Checkout/Checkout';
-import OrderForm from './OrderForm/OrderForm';
-import Menu from './Menu/Menu';
-import LogIn from './LogIn/LogIn';
-import AdminPage from '../AdminPage/AdminPage';
+import axios from "axios";
+import React, { useEffect } from "react";
+import "./App.css";
+import { HashRouter as Router, Route, NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import Checkout from "./Checkout/Checkout";
+import OrderForm from "./OrderForm/OrderForm";
+import Menu from "./Menu/Menu";
+
+import LogIn from "./LogIn/LogIn";
+import AdminPage from "./AdminPage/AdminPage";
 
 function App() {
   const dispatch = useDispatch();
 
   async function fetchMenu() {
     try {
-      const result = await axios.get('/api/pizza');
-      dispatch({ type: 'SET_MENU', payload: result.data });
+      const result = await axios.get("/api/pizza");
+      dispatch({ type: "SET_MENU", payload: result.data });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  async function fetchOrder() {
+    try {
+      const result = await axios.get("/api/order");
+      dispatch({ type: "SET_ORDERS", payload: result.data });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  async function fetchLineItem() {
+    try {
+      const result = await axios.get("/api/item");
+      dispatch({ type: "SET_LINE_ITEM", payload: result.data });
     } catch (err) {
       console.error(err);
     }
   }
 
-  async function fetchOrder() {
-    try {
-      const result = await axios.get('/api/order');
-      dispatch({ type: 'SET_ORDERS', payload: result.data });
-    } catch (err) {
-      console.error(err);
-    }
-  }
-  console.log(fetchOrder());
   useEffect(() => {
     fetchMenu();
     fetchOrder();
+    fetchLineItem();
   }, []);
 
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <h1 className='App-title'>Prime Pizza</h1>
+    <div className="App">
+      <header className="App-header">
+        <h1 className="App-title">Prime Pizza</h1>
       </header>
-      <div className='body'>
+      <div className="body">
         <Router>
-          <nav className="navbar">
+          <nav>
             <ul>
               <li>
-                <NavLink
-                  to='/'
-                  exact
-                  activeClassName='active'
-                >
+                <NavLink to="/" exact>
                   Home
                 </NavLink>
               </li>
               <li>
-                <NavLink
-                  to='/order-details'
-                  activeClassName='active'
-                >
-                  Orders
-                </NavLink>
+                <NavLink to="/order-details">Orders</NavLink>
               </li>
               <li>
-                <NavLink
-                  to='/checkout'
-                  activeClassName='active'
-                >
-                  Checkout
-                </NavLink>
+                <NavLink to="/checkout">Checkout</NavLink>
               </li>
             </ul>
           </nav>
-          <Route path='/' exact>
+          <Route path="/" exact>
             <Menu />
           </Route>
-          <Route path='/order-details' exact>
+          <Route path="/order-details" exact>
             <OrderForm />
           </Route>
-          <Route path='/checkout' exact>
+          <Route path="/checkout" exact>
             <Checkout />
           </Route>
-          <Route path='/admin' exact>
+          <Route path="/admin" exact>
             <AdminPage />
-          <LogIn />
           </Route>
-
+          <LogIn fetchOrder={fetchOrder} />
         </Router>
       </div>
     </div>
