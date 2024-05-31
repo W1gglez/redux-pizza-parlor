@@ -2,6 +2,7 @@
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 export default function AdminPage({ fetchOrder }) {
   const ordersState = useSelector((store) => store.orders);
@@ -18,7 +19,7 @@ export default function AdminPage({ fetchOrder }) {
   if (!orders || orders.length === 0) {
     return <div>No orders available</div>;
   }
-
+  const formattedTime = moment(orders[0].time).format('LLL');
   return (
     <>
       <h1>Admin Page</h1>
@@ -36,7 +37,7 @@ export default function AdminPage({ fetchOrder }) {
               <td>
                 <Link to={`/order/${order.id}`}>{order.customer_name}</Link>
               </td>
-              <td>{order.time}</td>
+              <td>{formattedTime}</td>
               <td>${order.total}</td>
             </tr>
           ))}
