@@ -4,7 +4,9 @@
     align-items: center;
     border: 1px solid #ccc;
     padding: 10px;
-    background-color: red;
+    background-color: blue;
+    color: whitesmoke;
+    border-radius: 25px;
   }
   
   .status {
@@ -14,10 +16,6 @@
   
   .status.active {
     font-weight: bold;
-    background-color: green;
+    background-color: red;
+    border-radius: 25px;
   }
-  
-  button {
-    margin-left: 10px;
-  }
-  

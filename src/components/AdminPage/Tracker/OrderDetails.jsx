@@ -14,10 +14,6 @@ const OrderDetails = () => {
 
 	const order = orders.find((order) => order.id === Number(id));
 
-	function returnToAdmin(event) {
-		<Link to={`/admin/`}>{order.customer_name}</Link>;
-	}
-
 	if (!order) {
 		return <div>Order not found</div>;
 	}
@@ -44,7 +40,7 @@ const OrderDetails = () => {
 				<TrackingBar />
 			</p>
 			<section>
-				<NavLink to='/admin'>Admin</NavLink>
+				<NavLink to='/admin'>Return to Order List</NavLink>
 			</section>
 		</div>
 	);
